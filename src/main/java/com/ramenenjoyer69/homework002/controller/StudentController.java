@@ -1,10 +1,9 @@
 package com.ramenenjoyer69.homework002.controller;
 
 import com.ramenenjoyer69.homework002.model.entity.Student;
+import com.ramenenjoyer69.homework002.model.request.StudentRequest;
 import com.ramenenjoyer69.homework002.service.StudentService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -20,9 +19,26 @@ public class StudentController {
 
     @GetMapping
     public List<Student> getAllStudents() {
-
-
         return studentService.getAllStudent();
     }
 
+    @GetMapping("/{student_id}")
+    public Student getStudentById(@PathVariable Long student_id) {
+        return studentService.getStudentById(student_id);
+    }
+
+    @PostMapping
+    public Student saveStudent(@RequestBody StudentRequest request) {
+        return studentService.saveStudent(request);
+    }
+
+    @PutMapping("/{student-id}")
+    public Student updateStudentById(@PathVariable("student-id") Long studentId, @RequestBody StudentRequest request) {
+        return studentService.updateStudentById(studentId, request);
+    }
+
+    @DeleteMapping("/{student_id}")
+    public Student deleteStudentById(@PathVariable("student_id") Long studentId) {
+        return studentService.deleteStudentById(studentId);
+    }
 }
