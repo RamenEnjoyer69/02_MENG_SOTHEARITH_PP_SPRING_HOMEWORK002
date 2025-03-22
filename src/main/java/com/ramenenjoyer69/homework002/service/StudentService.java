@@ -6,7 +6,7 @@ import com.ramenenjoyer69.homework002.model.request.StudentRequest;
 import java.util.List;
 
 public interface StudentService {
-    List<Student> getAllStudent();
+    List<Student> getAllStudent(Integer page, Integer size);
 
     Student getStudentById(Long studentId);
 

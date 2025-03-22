@@ -18,8 +18,8 @@ public class StudentController {
     }
 
     @GetMapping
-    public List<Student> getAllStudents() {
-        return studentService.getAllStudent();
+    public List<Student> getAllStudents(@RequestParam(defaultValue = "1") Integer page, @RequestParam(defaultValue = "10") Integer size) {
+        return studentService.getAllStudent(page, size);
     }
 
     @GetMapping("/{student_id}")

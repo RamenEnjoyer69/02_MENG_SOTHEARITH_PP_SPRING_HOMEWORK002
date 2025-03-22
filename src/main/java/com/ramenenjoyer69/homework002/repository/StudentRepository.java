@@ -3,7 +3,6 @@ package com.ramenenjoyer69.homework002.repository;
 import com.ramenenjoyer69.homework002.model.entity.Student;
 import com.ramenenjoyer69.homework002.model.request.StudentRequest;
 import org.apache.ibatis.annotations.*;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
@@ -19,8 +18,9 @@ public interface StudentRepository {
     )
     @Select("""
         SELECT * FROM students
+        OFFSET #{offset} LIMIT #{size}
     """)
-    List<Student> getAllStudents();
+    List<Student> getAllStudents(int offset, Integer size);
 
 
     @ResultMap("studentMapper")

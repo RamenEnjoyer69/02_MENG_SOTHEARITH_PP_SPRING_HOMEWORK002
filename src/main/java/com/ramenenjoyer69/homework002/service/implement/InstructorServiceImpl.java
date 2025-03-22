@@ -5,7 +5,6 @@ import com.ramenenjoyer69.homework002.model.request.InstructorRequest;
 import com.ramenenjoyer69.homework002.repository.InstructorRepository;
 import com.ramenenjoyer69.homework002.service.InstructorService;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
@@ -19,8 +18,9 @@ public class InstructorServiceImpl implements InstructorService {
     }
 
     @Override
-    public List<Instructor> getAllInstructors() {
-        return instructorRepository.getAllInstructors();
+    public List<Instructor> getAllInstructors(Integer page, Integer size) {
+        int offset = (page - 1) * size;
+        return instructorRepository.getAllInstructors(offset, size);
     }
 
     @Override

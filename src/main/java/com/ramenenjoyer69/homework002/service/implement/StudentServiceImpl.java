@@ -18,8 +18,10 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public List<Student> getAllStudent() {
-        return studentRepository.getAllStudents();
+    public List<Student> getAllStudent(Integer page, Integer size) {
+        int offset = (page - 1) * size;
+
+        return studentRepository.getAllStudents(offset, size);
     }
 
     @Override

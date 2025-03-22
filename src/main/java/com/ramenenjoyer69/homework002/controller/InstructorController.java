@@ -19,9 +19,9 @@ public class InstructorController {
     }
 
     @GetMapping
-    public List<Instructor> list() {
+    public List<Instructor> getAllInstructors(@RequestParam(defaultValue = "1") Integer page, @RequestParam(defaultValue = "10") Integer size) {
 
-        return instructorService.getAllInstructors();
+        return instructorService.getAllInstructors(page, size);
     }
 
     @PostMapping

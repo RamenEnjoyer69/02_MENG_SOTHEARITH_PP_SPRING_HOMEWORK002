@@ -16,8 +16,9 @@ public interface InstructorRepository {
     )
     @Select("""
         SELECT * FROM instructors
+        OFFSET #{offset} LIMIT #{size}
     """)
-    List<Instructor> getAllInstructors();
+    List<Instructor> getAllInstructors(int offset, Integer size);
 
 
     @ResultMap("instructorMapper")

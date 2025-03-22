@@ -8,7 +8,7 @@ import java.util.List;
 public interface InstructorService {
 
 
-    List<Instructor> getAllInstructors();
+    List<Instructor> getAllInstructors(Integer page, Integer size);
 
     Instructor saveInstructor(InstructorRequest request);
 
