@@ -1,10 +1,13 @@
 package com.ramenenjoyer69.homework002.controller;
 
 
+import com.ramenenjoyer69.homework002.exception.NotFoundException;
 import com.ramenenjoyer69.homework002.model.entity.Instructor;
+import com.ramenenjoyer69.homework002.model.error.ErrorResponse;
 import com.ramenenjoyer69.homework002.model.request.InstructorRequest;
 import com.ramenenjoyer69.homework002.model.response.Response;
 import com.ramenenjoyer69.homework002.service.InstructorService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -33,9 +36,23 @@ public class InstructorController {
     }
 
     @GetMapping("/{instructor_id}")
-    public ResponseEntity<Response<Instructor>> getInstructorById(@PathVariable Long instructor_id) {
+    public ResponseEntity<?> getInstructorById(@PathVariable Long instructor_id) {
+        Instructor instructor = instructorService.getInstructorById(instructor_id);
 
-        return instructorService.getInstructorById(instructor_id);
+        try {
+            if (instructor == null) {
+                throw new NotFoundException("Instructor with the ID " + instructor_id +" not found");
+            }
+        } catch (NotFoundException e) {
+            ErrorResponse errorResponse = new ErrorResponse(
+                    e.getMessage(),
+                    HttpStatus.NOT_FOUND
+            );
+
+            return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
+        }
+
+        return new ResponseEntity<>(instructor, HttpStatus.OK);
     }
 
     @PutMapping("/{instructor-id}")

@@ -55,29 +55,9 @@ public class InstructorServiceImpl implements InstructorService {
     }
 
     @Override
-    public ResponseEntity<Response<Instructor>> getInstructorById(Long instructor_id) {
+    public Instructor getInstructorById(Long instructor_id) {
 
-        Instructor instructor = instructorRepository.getInstructorById(instructor_id);
-
-        if (instructor == null) {
-            Response<Instructor> response = new Response<>(
-                    "Instructor not found",
-                    null,
-                    HttpStatus.NOT_FOUND.value(),
-                    Instant.now()
-            );
-
-            return ResponseEntity.ok(response);
-        }
-
-        Response<Instructor> response = new Response<>(
-                "Instructor retrieved successfully",
-                instructor,
-                HttpStatus.OK.value(),
-                Instant.now()
-        );
-
-        return ResponseEntity.ok(response);
+        return instructorRepository.getInstructorById(instructor_id);
     }
 
     @Override

@@ -38,28 +38,9 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public ResponseEntity<Response<Course>> getCourseById(Long courseId) {
+    public Course getCourseById(Long courseId) {
 
-        Course course = courseRepository.getCourseById(courseId);
-
-        if (course == null) {
-            Response<Course> response = new Response<>(
-                    "Course not found",
-                    null,
-                    HttpStatus.NOT_FOUND.value(),
-                    Instant.now()
-            );
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
-        }
-
-        Response<Course> response = new Response<>(
-                "Course retrieved successfully",
-                course,
-                HttpStatus.OK.value(),
-                Instant.now()
-        );
-
-        return ResponseEntity.ok(response);
+        return courseRepository.getCourseById(courseId);
     }
 
     @Override

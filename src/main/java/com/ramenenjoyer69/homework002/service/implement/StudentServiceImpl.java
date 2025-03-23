@@ -42,28 +42,9 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public ResponseEntity<Response<Student>> getStudentById(Long studentId) {
+    public Student getStudentById(Long studentId) {
 
-        Student student = studentRepository.getStudentById(studentId);
-
-        if (student == null) {
-            Response<Student> response = new Response<>(
-                    "Student not found",
-                    null,
-                    HttpStatus.NOT_FOUND.value(),
-                    Instant.now()
-            );
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
-        }
-
-        Response<Student> response = new Response<>(
-                "Student retrieved successfully",
-                student,
-                HttpStatus.OK.value(),
-                Instant.now()
-        );
-
-        return ResponseEntity.ok(response);
+        return studentRepository.getStudentById(studentId);
     }
 
     @Override

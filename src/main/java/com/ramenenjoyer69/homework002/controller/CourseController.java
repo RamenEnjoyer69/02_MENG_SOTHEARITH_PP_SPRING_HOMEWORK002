@@ -1,10 +1,13 @@
 package com.ramenenjoyer69.homework002.controller;
 
 
+import com.ramenenjoyer69.homework002.exception.NotFoundException;
 import com.ramenenjoyer69.homework002.model.entity.Course;
+import com.ramenenjoyer69.homework002.model.error.ErrorResponse;
 import com.ramenenjoyer69.homework002.model.request.CourseRequest;
 import com.ramenenjoyer69.homework002.model.response.Response;
 import com.ramenenjoyer69.homework002.service.CourseService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,8 +29,25 @@ public class CourseController {
     }
 
     @GetMapping("/{course_id}")
-    public ResponseEntity<Response<Course>> getCourseById(@PathVariable("course_id") Long courseId) {
-        return courseService.getCourseById(courseId);
+    public ResponseEntity<?> getCourseById(@PathVariable("course_id") Long courseId) {
+
+        Course course = courseService.getCourseById(courseId);
+
+        try {
+            if (course == null) {
+                throw new NotFoundException("Course not found");
+            }
+        }
+        catch (NotFoundException e) {
+            ErrorResponse errorResponse = new ErrorResponse(
+                    e.getMessage(),
+                    HttpStatus.NOT_FOUND
+            );
+
+            return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
+        }
+
+        return new ResponseEntity<>(course, HttpStatus.OK);
     }
 
     @DeleteMapping("/{course_id}")

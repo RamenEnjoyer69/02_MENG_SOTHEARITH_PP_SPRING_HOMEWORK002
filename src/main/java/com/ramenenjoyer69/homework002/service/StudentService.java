@@ -10,7 +10,7 @@ import java.util.List;
 public interface StudentService {
     ResponseEntity<Response<List<Student>>> getAllStudent(Integer page, Integer size);
 
-    ResponseEntity<Response<Student>> getStudentById(Long studentId);
+    Student getStudentById(Long studentId);
 
     ResponseEntity<Response<Student>> saveStudent(StudentRequest request);
 

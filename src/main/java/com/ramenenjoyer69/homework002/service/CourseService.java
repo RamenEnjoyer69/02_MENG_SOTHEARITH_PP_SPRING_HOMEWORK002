@@ -10,7 +10,7 @@ import java.util.List;
 public interface CourseService {
     ResponseEntity<Response<List<Course>>> getAllCourses(Integer page, Integer size);
 
-    ResponseEntity<Response<Course>> getCourseById(Long courseId);
+    Course getCourseById(Long courseId);
 
     ResponseEntity<Response<Course>> deleteCourseById(Long courseId);
 
