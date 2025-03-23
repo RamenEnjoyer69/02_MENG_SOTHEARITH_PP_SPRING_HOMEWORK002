@@ -24,5 +24,10 @@ public interface StudentCourseRepository {
      """)
     void insertStudentIdAndCourseId(Long studentId, Long courseId);
 
+    @Select("SELECT course_id FROM student_course WHERE student_id = #{studentId}")
+    List<Long> getCourseIdsByStudentId(Long studentId);
+
+    @Delete("DELETE FROM student_course WHERE student_id = #{studentId} AND course_id = #{courseId}")
+    void removeStudentCourse(Long studentId, Long courseId);
 
 }

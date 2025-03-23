@@ -43,7 +43,26 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public Student updateStudentById(Long studentId, StudentRequest request) {
-        return studentRepository.updateStudentById(studentId, request);
+        Student student = studentRepository.updateStudentById(studentId, request);
+
+        List<Long> existingCourseIds = studentCourseRepository.getCourseIdsByStudentId(studentId);
+        List<Long> newCourseIds = request.getCoursesId();
+
+        // remove courses that are not in the new list
+        for (Long existingCourseId : existingCourseIds ) {
+            if (!newCourseIds.contains(existingCourseId)) {
+                studentCourseRepository.removeStudentCourse(student.getStudentId(), existingCourseId);
+            }
+        }
+
+        // adds the new courses that weren't present in the old list or existing list or whatever you wanna call it ig
+        for (Long newCourseId : newCourseIds) {
+            if (!existingCourseIds.contains(newCourseId)) {
+                studentCourseRepository.insertStudentIdAndCourseId(student.getStudentId(), newCourseId);
+            }
+        }
+
+        return studentRepository.getStudentById(student.getStudentId());
     }
 
     @Override
