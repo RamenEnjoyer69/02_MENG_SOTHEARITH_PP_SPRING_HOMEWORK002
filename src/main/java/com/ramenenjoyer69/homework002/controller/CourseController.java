@@ -3,7 +3,9 @@ package com.ramenenjoyer69.homework002.controller;
 
 import com.ramenenjoyer69.homework002.model.entity.Course;
 import com.ramenenjoyer69.homework002.model.request.CourseRequest;
+import com.ramenenjoyer69.homework002.model.response.Response;
 import com.ramenenjoyer69.homework002.service.CourseService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,7 +21,7 @@ public class CourseController {
     }
 
     @GetMapping
-    public List<Course> list(@RequestParam(defaultValue = "1") Integer page, @RequestParam(defaultValue = "10") Integer size) {
+    public ResponseEntity<Response<List<Course>>> list(@RequestParam(defaultValue = "1") Integer page, @RequestParam(defaultValue = "10") Integer size) {
         return courseService.getAllCourses(page,size);
     }
 
