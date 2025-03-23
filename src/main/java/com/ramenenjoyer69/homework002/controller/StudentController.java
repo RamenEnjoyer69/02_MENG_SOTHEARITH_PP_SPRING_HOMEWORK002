@@ -25,22 +25,22 @@ public class StudentController {
     }
 
     @GetMapping("/{student_id}")
-    public Student getStudentById(@PathVariable Long student_id) {
+    public ResponseEntity<Response<Student>> getStudentById(@PathVariable Long student_id) {
         return studentService.getStudentById(student_id);
     }
 
     @PostMapping
-    public Student saveStudent(@RequestBody StudentRequest request) {
+    public ResponseEntity<Response<Student>> saveStudent(@RequestBody StudentRequest request) {
         return studentService.saveStudent(request);
     }
 
     @PutMapping("/{student-id}")
-    public Student updateStudentById(@PathVariable("student-id") Long studentId, @RequestBody StudentRequest request) {
+    public ResponseEntity<Response<Student>> updateStudentById(@PathVariable("student-id") Long studentId, @RequestBody StudentRequest request) {
         return studentService.updateStudentById(studentId, request);
     }
 
     @DeleteMapping("/{student_id}")
-    public Student deleteStudentById(@PathVariable("student_id") Long studentId) {
+    public ResponseEntity<Response<Student>> deleteStudentById(@PathVariable("student_id") Long studentId) {
         return studentService.deleteStudentById(studentId);
     }
 }

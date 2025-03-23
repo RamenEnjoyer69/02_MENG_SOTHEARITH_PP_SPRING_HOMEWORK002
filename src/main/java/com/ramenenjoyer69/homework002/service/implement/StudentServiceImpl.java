@@ -42,21 +42,53 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public Student getStudentById(Long studentId) {
-        return studentRepository.getStudentById(studentId);
+    public ResponseEntity<Response<Student>> getStudentById(Long studentId) {
+
+        Student student = studentRepository.getStudentById(studentId);
+
+        if (student == null) {
+            Response<Student> response = new Response<>(
+                    "Student not found",
+                    null,
+                    HttpStatus.NOT_FOUND.value(),
+                    Instant.now()
+            );
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
+        }
+
+        Response<Student> response = new Response<>(
+                "Student retrieved successfully",
+                student,
+                HttpStatus.OK.value(),
+                Instant.now()
+        );
+
+        return ResponseEntity.ok(response);
     }
 
     @Override
-    public Student saveStudent(StudentRequest request) {
+    public ResponseEntity<Response<Student>> saveStudent(StudentRequest request) {
         Student student = studentRepository.saveStudent(request);
         for (Long courseId : request.getCoursesId()) {
             studentCourseRepository.insertStudentIdAndCourseId(student.getStudentId(), courseId);
         }
-        return studentRepository.getStudentById(student.getStudentId());
+
+        Student updateStudent = studentRepository.getStudentById(student.getStudentId());
+
+        String message = "Student saved successfully";
+
+        Response<Student> response = new Response<>(
+                message,
+                updateStudent,
+                HttpStatus.CREATED.value(),
+                Instant.now()
+        );
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
     @Override
-    public Student updateStudentById(Long studentId, StudentRequest request) {
+    public ResponseEntity<Response<Student>> updateStudentById(Long studentId, StudentRequest request) {
         Student student = studentRepository.updateStudentById(studentId, request);
 
         List<Long> existingCourseIds = studentCourseRepository.getCourseIdsByStudentId(studentId);
@@ -76,12 +108,44 @@ public class StudentServiceImpl implements StudentService {
             }
         }
 
-        return studentRepository.getStudentById(student.getStudentId());
+        String message = "Student updated successfully";
+
+        Response<Student> response = new Response<>(
+                message,
+                student,
+                HttpStatus.CONTINUE.value(),
+                Instant.now()
+        );
+        return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
     @Override
-    public Student deleteStudentById(Long studentId) {
-        return studentRepository.deleteStudentById(studentId);
+    public ResponseEntity<Response<Student>> deleteStudentById(Long studentId) {
+
+        Student student = studentRepository.getStudentById(studentId);
+
+        if (studentRepository.getStudentById(studentId) == null) {
+            Response<Student> response = new Response<>(
+                    "Student not found",
+                    student,
+                    HttpStatus.NOT_FOUND.value(),
+                    Instant.now()
+            );
+
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
+        }
+
+        studentRepository.deleteStudentById(studentId);
+        String message = "Student deleted successfully";
+
+        Response<Student> response = new Response<>(
+                message,
+                student,
+                HttpStatus.CONTINUE.value(),
+                Instant.now()
+        );
+
+        return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
 

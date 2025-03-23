@@ -10,12 +10,12 @@ import java.util.List;
 public interface StudentService {
     ResponseEntity<Response<List<Student>>> getAllStudent(Integer page, Integer size);
 
-    Student getStudentById(Long studentId);
+    ResponseEntity<Response<Student>> getStudentById(Long studentId);
 
-    Student saveStudent(StudentRequest request);
+    ResponseEntity<Response<Student>> saveStudent(StudentRequest request);
 
 
-    Student updateStudentById(Long studentId, StudentRequest request);
+    ResponseEntity<Response<Student>> updateStudentById(Long studentId, StudentRequest request);
 
-    Student deleteStudentById(Long studentId);
+    ResponseEntity<Response<Student>> deleteStudentById(Long studentId);
 }
