@@ -17,7 +17,7 @@ public interface InstructorService {
     ResponseEntity<Response<Instructor>> getInstructorById(Long instructor_id);
 
 
-    Instructor updateInstructorById(Long instructorId, InstructorRequest request);
+    ResponseEntity<Response<Instructor>> updateInstructorById(Long instructorId, InstructorRequest request);
 
-    Instructor deleteInstructorById(Long instructorId);
+    ResponseEntity<Response<Instructor>> deleteInstructorById(Long instructorId);
 }

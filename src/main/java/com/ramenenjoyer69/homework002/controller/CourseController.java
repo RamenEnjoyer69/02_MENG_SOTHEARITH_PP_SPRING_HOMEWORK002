@@ -26,22 +26,22 @@ public class CourseController {
     }
 
     @GetMapping("/{course_id}")
-    public Course getCourseById(@PathVariable("course_id") Long courseId) {
+    public ResponseEntity<Response<Course>> getCourseById(@PathVariable("course_id") Long courseId) {
         return courseService.getCourseById(courseId);
     }
 
     @DeleteMapping("/{course_id}")
-    public Course deleteCourseById(@PathVariable("course_id") Long courseId) {
+    public ResponseEntity<Response<Course>> deleteCourseById(@PathVariable("course_id") Long courseId) {
         return courseService.deleteCourseById(courseId);
     }
 
     @PostMapping
-    public Course saveCourse(@RequestBody CourseRequest request) {
+    public ResponseEntity<Response<Course>> saveCourse(@RequestBody CourseRequest request) {
         return courseService.saveCourse(request);
     }
 
     @PutMapping("/{course_id}")
-    public Course updateCourseById(@PathVariable("course_id") Long courseId, @RequestBody CourseRequest request) {
+    public ResponseEntity<Response<Course>> updateCourseById(@PathVariable("course_id") Long courseId, @RequestBody CourseRequest request) {
         return courseService.updateCourseById(courseId, request);
     }
 }

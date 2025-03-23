@@ -81,13 +81,55 @@ public class InstructorServiceImpl implements InstructorService {
     }
 
     @Override
-    public Instructor updateInstructorById(Long instructorId, InstructorRequest request) {
-        return instructorRepository.updateInstructorById(instructorId, request);
+    public ResponseEntity<Response<Instructor>> updateInstructorById(Long instructorId, InstructorRequest request) {
+
+        Instructor instructor = instructorRepository.updateInstructorById(instructorId, request);
+
+        if (instructor == null) {
+            Response<Instructor> response = new Response<>(
+                    "Instructor not found",
+                    null,
+                    HttpStatus.NOT_FOUND.value(),
+                    Instant.now()
+            );
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
+        }
+
+        Response<Instructor> response = new Response<>(
+                "Instructor updated successfully",
+                instructor,
+                HttpStatus.OK.value(),
+                Instant.now()
+        );
+
+
+        return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
     @Override
-    public Instructor deleteInstructorById(Long instructorId) {
-        return instructorRepository.deleteInstructorById(instructorId);
+    public ResponseEntity<Response<Instructor>> deleteInstructorById(Long instructorId) {
+
+        Instructor instructor = instructorRepository.getInstructorById(instructorId);
+        if (instructor == null) {
+
+            Response<Instructor> response = new Response<>(
+                    "Instructor not found",
+                    null,
+                    HttpStatus.NOT_FOUND.value(),
+                    Instant.now()
+                    );
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
+        }
+
+        Instructor deletedInstructor = instructorRepository.deleteInstructorById(instructorId);
+        Response<Instructor> response = new Response<>(
+                "Instructor deleted successfully",
+                deletedInstructor,
+                HttpStatus.OK.value(),
+                Instant.now()
+        );
+
+        return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
 

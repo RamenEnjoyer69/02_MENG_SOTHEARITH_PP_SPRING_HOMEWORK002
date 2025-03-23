@@ -127,7 +127,7 @@ public class StudentServiceImpl implements StudentService {
         if (studentRepository.getStudentById(studentId) == null) {
             Response<Student> response = new Response<>(
                     "Student not found",
-                    student,
+                    null,
                     HttpStatus.NOT_FOUND.value(),
                     Instant.now()
             );

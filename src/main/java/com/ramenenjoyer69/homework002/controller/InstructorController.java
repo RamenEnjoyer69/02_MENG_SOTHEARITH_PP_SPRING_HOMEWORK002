@@ -39,13 +39,13 @@ public class InstructorController {
     }
 
     @PutMapping("/{instructor-id}")
-    public Instructor updateInstructor(@PathVariable("instructor-id") Long instructorId, @RequestBody InstructorRequest request) {
+    public ResponseEntity<Response<Instructor>> updateInstructor(@PathVariable("instructor-id") Long instructorId, @RequestBody InstructorRequest request) {
 
         return instructorService.updateInstructorById(instructorId, request);
     }
 
     @DeleteMapping("/{instructor_id}")
-    public Instructor deleteInstructorById(@PathVariable Long instructor_id) {
+    public ResponseEntity<Response<Instructor>> deleteInstructorById(@PathVariable Long instructor_id) {
         return instructorService.deleteInstructorById(instructor_id);
     }
 

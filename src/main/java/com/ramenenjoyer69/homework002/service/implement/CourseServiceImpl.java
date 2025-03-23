@@ -38,23 +38,95 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public Course getCourseById(Long courseId) {
-        return courseRepository.getCourseById(courseId);
+    public ResponseEntity<Response<Course>> getCourseById(Long courseId) {
+
+        Course course = courseRepository.getCourseById(courseId);
+
+        if (course == null) {
+            Response<Course> response = new Response<>(
+                    "Course not found",
+                    null,
+                    HttpStatus.NOT_FOUND.value(),
+                    Instant.now()
+            );
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
+        }
+
+        Response<Course> response = new Response<>(
+                "Course retrieved successfully",
+                course,
+                HttpStatus.OK.value(),
+                Instant.now()
+        );
+
+        return ResponseEntity.ok(response);
     }
 
     @Override
-    public Course deleteCourseById(Long courseId) {
-        return courseRepository.deleteCourseById(courseId);
+    public ResponseEntity<Response<Course>> deleteCourseById(Long courseId) {
+
+        Course course = courseRepository.getCourseById(courseId);
+
+        if (course == null) {
+            Response<Course> response = new Response<>(
+                    "Course not found",
+                    null,
+                    HttpStatus.NOT_FOUND.value(),
+                    Instant.now()
+            );
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
+        }
+
+        Course deletedCourse = courseRepository.deleteCourseById(courseId);
+        Response<Course> response = new Response<>(
+                "Course deleted successfully",
+                deletedCourse,
+                HttpStatus.OK.value(),
+                Instant.now()
+        );
+        return ResponseEntity.status(HttpStatus.OK).body(response);
+
     }
 
     @Override
-    public Course saveCourse(CourseRequest request) {
-        return courseRepository.saveCourse(request);
+    public ResponseEntity<Response<Course>> saveCourse(CourseRequest request) {
+
+        Course course = courseRepository.saveCourse(request);
+
+        Response<Course> response = new Response<>(
+                "Course saved successfully",
+                course,
+                HttpStatus.CREATED.value(),
+                Instant.now()
+        );
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
     @Override
-    public Course updateCourseById(Long courseId, CourseRequest request) {
-        return courseRepository.updateCourseById(courseId, request);
+    public ResponseEntity<Response<Course>> updateCourseById(Long courseId, CourseRequest request) {
+
+        Course course = courseRepository.getCourseById(courseId);
+
+        if (course == null) {
+            Response<Course> response = new Response<>(
+                    "Course not found",
+                    null,
+                    HttpStatus.NOT_FOUND.value(),
+                    Instant.now()
+            );
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
+        }
+
+        Course updatedCourse = courseRepository.updateCourseById(courseId, request);
+        Response<Course> response = new Response<>(
+                "Course updated successfully",
+                updatedCourse,
+                HttpStatus.OK.value(),
+                Instant.now()
+        );
+
+        return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
 

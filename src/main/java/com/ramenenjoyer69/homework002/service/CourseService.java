@@ -10,11 +10,11 @@ import java.util.List;
 public interface CourseService {
     ResponseEntity<Response<List<Course>>> getAllCourses(Integer page, Integer size);
 
-    Course getCourseById(Long courseId);
+    ResponseEntity<Response<Course>> getCourseById(Long courseId);
 
-    Course deleteCourseById(Long courseId);
+    ResponseEntity<Response<Course>> deleteCourseById(Long courseId);
 
-    Course saveCourse(CourseRequest request);
+    ResponseEntity<Response<Course>> saveCourse(CourseRequest request);
 
-    Course updateCourseById(Long courseId, CourseRequest request);
+    ResponseEntity<Response<Course>> updateCourseById(Long courseId, CourseRequest request);
 }
