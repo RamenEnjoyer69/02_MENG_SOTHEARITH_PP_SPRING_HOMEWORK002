@@ -21,3 +21,5 @@ VALUES
     ('Web Development', 'Covers HTML, CSS, JavaScript, and modern frameworks.', 3),
     ('Data Structures & Algorithms', 'In-depth study of algorithms and data structures using Java.', 4),
     ('Software Engineering', 'Covers SDLC, Agile methodologies, and software design patterns.', 5);
+
+INSERT INTO student_course (id,course_id ,student_id ) values (default,1, 2), (default,2, 2), (default,3,2)

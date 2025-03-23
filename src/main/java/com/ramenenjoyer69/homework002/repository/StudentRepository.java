@@ -13,7 +13,9 @@ public interface StudentRepository {
             {
                     @Result(property = "studentId", column = "student_id"),
                     @Result(property = "studentName", column = "student_name"),
-                    @Result(property = "phoneNumber", column = "phone_number")
+                    @Result(property = "phoneNumber", column = "phone_number"),
+                    @Result(property = "courses", column = "student_id", many = @Many(select = "com.ramenenjoyer69.homework002.repository.StudentCourseRepository.getAllCoursesByStudentId")),
+
             }
     )
     @Select("""
