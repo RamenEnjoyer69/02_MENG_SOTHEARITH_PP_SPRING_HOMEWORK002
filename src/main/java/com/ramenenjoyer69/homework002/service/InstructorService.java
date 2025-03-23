@@ -12,9 +12,9 @@ public interface InstructorService {
 
     ResponseEntity<Response<List<Instructor>>> getAllInstructors(Integer page, Integer size);
 
-    Instructor saveInstructor(InstructorRequest request);
+    ResponseEntity<Response<Instructor>> saveInstructor(InstructorRequest request);
 
-    Instructor getInstructorById(Long instructor_id);
+    ResponseEntity<Response<Instructor>> getInstructorById(Long instructor_id);
 
 
     Instructor updateInstructorById(Long instructorId, InstructorRequest request);

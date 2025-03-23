@@ -27,13 +27,13 @@ public class InstructorController {
     }
 
     @PostMapping
-    public Instructor saveInstructor(@RequestBody InstructorRequest request) {
+    public ResponseEntity<Response<Instructor>> saveInstructor(@RequestBody InstructorRequest request) {
 
         return instructorService.saveInstructor(request);
     }
 
     @GetMapping("/{instructor_id}")
-    public Instructor getInstructorById(@PathVariable Long instructor_id) {
+    public ResponseEntity<Response<Instructor>> getInstructorById(@PathVariable Long instructor_id) {
 
         return instructorService.getInstructorById(instructor_id);
     }

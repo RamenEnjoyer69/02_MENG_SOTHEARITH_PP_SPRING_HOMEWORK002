@@ -39,13 +39,45 @@ public class InstructorServiceImpl implements InstructorService {
     }
 
     @Override
-    public Instructor saveInstructor(InstructorRequest request) {
-        return instructorRepository.saveInstructor(request);
+    public ResponseEntity<Response<Instructor>> saveInstructor(InstructorRequest request) {
+
+        Instructor instructor = instructorRepository.saveInstructor(request);
+
+        String message = "Instructor saved successfully";
+        Response<Instructor> response = new Response<>(
+          message,
+          instructor,
+          HttpStatus.OK.value(),
+          Instant.now()
+        );
+
+        return ResponseEntity.ok(response);
     }
 
     @Override
-    public Instructor getInstructorById(Long instructor_id) {
-        return instructorRepository.getInstructorById(instructor_id);
+    public ResponseEntity<Response<Instructor>> getInstructorById(Long instructor_id) {
+
+        Instructor instructor = instructorRepository.getInstructorById(instructor_id);
+
+        if (instructor == null) {
+            Response<Instructor> response = new Response<>(
+                    "Instructor not found",
+                    null,
+                    HttpStatus.NOT_FOUND.value(),
+                    Instant.now()
+            );
+
+            return ResponseEntity.ok(response);
+        }
+
+        Response<Instructor> response = new Response<>(
+                "Instructor retrieved successfully",
+                instructor,
+                HttpStatus.OK.value(),
+                Instant.now()
+        );
+
+        return ResponseEntity.ok(response);
     }
 
     @Override
