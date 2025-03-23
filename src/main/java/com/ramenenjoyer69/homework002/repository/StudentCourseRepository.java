@@ -17,4 +17,12 @@ public interface StudentCourseRepository {
         SELECT * FROM student_course sc INNER JOIN courses c ON sc.course_id = c.course_id WHERE student_id = #{studentId}
     """)
     List<Course> getAllCoursesByStudentId(Long studentId);
+
+
+    @Insert("""
+         INSERT INTO student_course VALUES (default, #{studentId}, #{courseId})
+     """)
+    void insertStudentIdAndCourseId(Long studentId, Long courseId);
+
+
 }

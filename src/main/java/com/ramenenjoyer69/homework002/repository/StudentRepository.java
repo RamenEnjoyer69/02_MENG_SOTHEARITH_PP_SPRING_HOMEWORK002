@@ -48,4 +48,7 @@ public interface StudentRepository {
         DELETE from students where student_id = #{studentId}
     """)
     Student deleteStudentById(Long studentId);
+
+
+
 }
